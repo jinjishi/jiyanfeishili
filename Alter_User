@@ -1,0 +1,88 @@
+package intership2.dao;
+
+import java.util.ArrayList;
+import java.lang.Exception;
+import java.util.Scanner;
+public class Alter_User {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		System.out.println("欢迎来到京东购物");
+		System.out.println("请输入用户ID:");
+		String str=in.next();
+		UserDaoImpl impl=new UserDaoImpl();
+		System.out.println("请输入要修改的内容：修改昵称选1，性别选2，密码选3，QQ号选4，QQ密码选5，微信号选6，微信密码选7:");
+		int a=in.nextInt();
+		@SuppressWarnings("unused")
+    	ArrayList<User> list=new ArrayList<User>();
+		boolean c=false;
+		switch(a)
+		{
+		case 1:
+		{
+		do
+		{
+			c=false;
+			System.out.println("昵称：");
+			String str1=in.next();
+			list=impl.getUser2("use shopping select * from [User] where Nickname='"+str1+"'");
+			if(impl.result)
+	    	{
+	    		System.out.println("该用户已存在，请换一个昵称");
+	    		c=true;
+		    }
+			else
+				impl.updateUser("use shopping UPDATE [User] SET Nickname='"+str1+"'Where Userid='"+str+"'");
+		}while(c);
+		}
+		break;
+		case 2:
+		{
+			System.out.println("性别：");
+			String str2=in.next();
+			impl.updateUser("use shopping UPDATE [User] SET Sex='"+str2+"'Where Userid='"+str+"'");
+		}
+		break;
+		case 3:
+		{
+			System.out.println("密码：");
+			String str3=in.next();
+			impl.updateUser("use shopping UPDATE [User] SET Password='"+str3+"'Where Userid='"+str+"'");
+		}
+		break;
+		case 4:
+		{
+			System.out.println("QQid：");
+			String str4=in.next();
+			impl.updateUser("use shopping UPDATE [User] SET QQid='"+str4+"'Where Userid='"+str+"'");
+		}
+		break;
+		case 5:
+		{
+			System.out.println("QQpassword");
+			String str5=in.next();
+			impl.updateUser("use shopping UPDATE [User] SET QQpassword='"+str5+"'Where Userid='"+str+"'");
+		}
+		break;
+		case 6:
+		{
+			System.out.println("Wechatid：");
+			String str6=in.next();
+			impl.updateUser("use shopping UPDATE [User] SET Wechatid='"+str6+"'Where Userid='"+str+"'");
+		}
+		break;
+		case 7:
+		{
+			System.out.println("Wechat：");
+			String str7=in.next();
+			impl.updateUser("use shopping UPDATE [User] SET Wechatpassword='"+str7+"'Where Userid='"+str+"'");
+		}
+		break;
+		}
+		in.close();
+		System.out.println("修成功");
+		System.out.println("信息如下：");
+		list=impl.getUser("use shopping select * from [User] where Userid ='"+str+"'");
+
+	}
+
+}
