@@ -1,0 +1,77 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Register {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		boolean a=false;
+		System.out.println("欢迎来到京东购物");
+		UserDaoImpl impl=new UserDaoImpl();
+		System.out.println("请注册信息");
+		System.out.println("请输入昵称、用户ID、性别、密码、QQ号、QQ密码、微信号、微信密码");
+		User user1=new User();
+		@SuppressWarnings("unused")
+    	ArrayList<User> list=new ArrayList<User>();
+		String str1;
+		do
+		{
+			a=false;
+			System.out.println("昵称：");
+			str1=in.next();
+			list=impl.getUser2("use shopping select * from [User] where Nickname='"+str1+"'");
+			if(impl.result)
+	    	{
+	    		System.out.println("该用户已存在，请换一个昵称");
+	    		a=true;
+		    }
+			else
+				user1.SetterNickname(str1);
+		}while(a);
+		
+		do
+		{
+			a=false;
+			System.out.println("用户ID：");
+			String str2=in.next();
+			list=impl.getUser2("use shopping select * from [User] where Userid='"+str2+"'");
+			if(impl.result)
+	    	{
+	    		System.out.println("该用户已存在，请换一个用户ID");
+	    		a=true;
+		    }
+			else
+				user1.SetterUserid(str2);
+		}while(a);
+		
+		System.out.println("性别：");
+		String str3=in.next();
+		user1.SetterSex(str3);
+		
+		System.out.println("密码：");
+		String str4=in.next();
+		user1.SetterPassword(str4);
+		
+		System.out.println("QQ号：");
+		String str5=in.next();
+		user1.SetterQQid(str5);
+		
+		System.out.println("QQ密码：");
+		String str6=in.next();
+		user1.SetterQQpassword(str6);
+		
+		System.out.println("微信：");
+		String str7=in.next();
+		user1.SetterWechatid(str7);
+		
+		System.out.println("微信密码：");
+		String str8=in.next();
+		user1.SetterWechatpassword(str8);
+		
+		impl.addUser(user1);
+		System.out.println("注册成功");
+		System.out.println("信息如下：");
+		list=impl.getUser("use shopping select * from [User] where Nickname ='"+str1+"'");
+	}
+	
+}
