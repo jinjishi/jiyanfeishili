@@ -1,0 +1,72 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Shop_concern {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		System.out.println("欢迎来到京东购物");
+		
+		CareDaoImpl impl1=new CareDaoImpl();
+		StoreDAOImpl impl2=new StoreDAOImpl();
+		BelongDaoImpl impl3=new BelongDaoImpl();
+		
+		System.out.println("请输入昵称：");
+		String str1=in.next();
+		
+		System.out.println("你关注的店铺有：");
+		@SuppressWarnings("unused")
+    	ArrayList<Care> list1=new ArrayList<Care>();
+		System.out.println("Storeid\t\tNickname");
+		list1=impl1.getCare("use shopping select Storeid,Nickname from Care where Nickname='"+str1+"'");
+		
+		System.out.println("我们有如下店铺：");
+		@SuppressWarnings("unused")
+    	ArrayList<Store> list2=new ArrayList<Store>();
+		System.out.println("Storeid\t\t\tStorename");
+		list2=impl2.getStore("use shopping select * from Store");
+		
+		@SuppressWarnings("unused")
+    	ArrayList<Belong> list3=new ArrayList<Belong>();
+		int a=2;
+		do
+		{
+			System.out.println("请输入你中意的店铺：");
+			String str2=in.next();
+			System.out.println(str2+"店中有以下商品：");
+			System.out.println("Storeid\t\t\tProductid\t\tColor\tSize");
+			list3=impl3.getBelong("use shopping select * from Belong where Storeid='"+str2+"'");
+			System.out.println("你是否还要看一个：是输1，否输2");
+			a=in.nextInt();
+		}while(a==1);
+		int b=1;
+		do
+		{
+			System.out.println("请问你要关注还是取消关注店铺，关注选1，取消选2，其他选3");
+			b=in.nextInt();
+			if(b==1)
+			{
+				System.out.println("请输入要关注的商店id");
+				String str3=in.next();
+				Care care1=new Care();
+				care1.SetterNickname(str1);
+				care1.SetterStoreid(str3);
+				impl1.addCare(care1);
+				System.out.println("是否还要进行下一步操作：是输3，否输1");
+			    b=in.nextInt();
+			}
+			else if(b==2)
+			{
+				System.out.println("请输入要取消关注的商店id");
+				String str3=in.next();
+				impl1.delCare("delete from Care where Nickname='"+str1+"' and Storeid='"+str3+"'");
+				System.out.println("是否还要进行下一步操作：是输3，否输1");
+			    b=in.nextInt();
+			}
+			else
+				b=1;
+		}while(b==3);
+		in.close();
+		System.out.println("欢迎再次光临");
+	}
+}
