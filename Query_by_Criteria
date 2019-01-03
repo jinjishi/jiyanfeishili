@@ -1,0 +1,56 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Query_by_Criteria {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		System.out.println("欢迎来到京东购物");
+		TagDaoImpl impl2=new TagDaoImpl();
+		ProductDaoImpl impl3=new ProductDaoImpl();
+		System.out.println("我们有如下种类的商品：");
+		@SuppressWarnings("unused")
+    	ArrayList<Tag> list2=new ArrayList<Tag>();
+		System.out.println("Tagname\tTagid");
+		list2=impl2.getTag("use shopping select * from Tag");
+		@SuppressWarnings("unused")
+    	ArrayList<Product> list3=new ArrayList<Product>();
+		int a=2;
+		do
+		{
+			System.out.println("请输入你想要查询的商品Tagname：");
+			String str1=in.next();
+			System.out.println(str1+"种类商品如下：");
+			System.out.println("Productid\t\tColor\tSize\tProductname");
+			list3=impl3.getProduct2("use shopping select Productid,Color,Size,Productname from Product where Tagname='"+str1+"'");
+			
+			System.out.println("请问你要按颜色查询还是按大小查询：颜色选1，大小选2");
+			int b=in.nextInt();
+			if(b==1)
+			{
+				System.out.println("有如下颜色：");
+				list3=impl3.getProduct3("use shopping select Productid,Color,Size,Productname from Product where Tagname='"+str1+"'");
+				System.out.println("请输入颜色：");
+				String str2=in.next();
+				System.out.println(str2+"色商品如下：");
+				System.out.println("Productid\t\tColor\tSize\tProductname\tPostage\tWeight\tPrice\tIventory\tComment\tSale_volume\tTagname");
+				list3=impl3.getProduct("use shopping select * from Product where Color='"+str2+"' and Tagname='"+str1+"'");
+			}
+			else
+			{
+				System.out.println("有如下大小：");
+				list3=impl3.getProduct4("use shopping select Productid,Color,Size from Product where Tagname='"+str1+"'");
+				System.out.println("请输入大小：");
+				String str2=in.next();
+				System.out.println(str2+"大小商品如下：");
+				System.out.println("Productid\tColor\tSize\tProductname\tPostage\tWeight\tPrice\tIventory\tComment\tSale_volume\tTagname");
+				list3=impl3.getProduct("use shopping select * from Product where Size='"+str2+"' and Tagname='"+str1+"'");
+			}
+			
+			System.out.println("你是否还要再次查询：是输1，否输2");
+			a=in.nextInt();
+		}while(a==1);
+		in.close();
+		System.out.println("欢迎再次光临");
+	}
+}
