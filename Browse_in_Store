@@ -1,0 +1,46 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Browse_in_Store {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		System.out.println("欢迎来到京东购物");
+		ProductDaoImpl impl2=new ProductDaoImpl();
+		StoreDAOImpl impl3=new StoreDAOImpl();
+		BelongDaoImpl impl4=new BelongDaoImpl();//
+		System.out.println("我们有如下店铺：");
+		@SuppressWarnings("unused")
+    	ArrayList<Store> list1=new ArrayList<Store>();
+		System.out.println("Storeid\t\t\tStorename");
+		list1=impl3.getStore("use shopping select * from Store");//
+		@SuppressWarnings("unused")
+    	ArrayList<Belong> list2=new ArrayList<Belong>();
+		@SuppressWarnings("unused")
+    	ArrayList<Product> list3=new ArrayList<Product>();
+		int a=2;
+		do
+		{
+			System.out.println("请输入你中意的店铺：");
+			String str1=in.next();
+			System.out.println(str1+"店中有以下商品：");
+			System.out.println("Storeid\t\t\tProductid\t\tColor\tSize");
+			list2=impl4.getBelong("use shopping select * from Belong where Storeid='"+str1+"'");
+			System.out.println("请输入你中意商品的ID，Color和Size");
+			System.out.println("Productid:");
+			String str2=in.next();
+			System.out.println("Color:");
+			String str3=in.next();
+			System.out.println("Size:");
+			String str4=in.next();
+			System.out.println("详细信息如下：");
+			System.out.println("Productid\t\tColor\tSize\tProductname\tPostage\tWeight\tPrice\tIventory\tComment\tSale_volume\tTagname");
+			list3=impl2.getProduct("use shopping select * from Product where Productid='"+str2+"'and Color='"+str3+"'and Size='"+str4+"'");
+			System.out.println("你是否还要再次查询：是输1，否输2");
+			a=in.nextInt();
+		}while(a==1);
+		in.close();
+		System.out.println("欢迎再次光临");
+	}
+
+}
