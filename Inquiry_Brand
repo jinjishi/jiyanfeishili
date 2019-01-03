@@ -1,0 +1,45 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Inquiry_Brand {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		System.out.println("欢迎来到京东购物");
+		
+		BSDaoImpl impl1=new BSDaoImpl();
+		StoreDAOImpl impl2=new StoreDAOImpl();
+		BrandDaoImpl impl3=new BrandDaoImpl();
+		
+		System.out.println("我们有如下店铺：");
+		@SuppressWarnings("unused")
+    	ArrayList<Store> list2=new ArrayList<Store>();
+		System.out.println("Storeid\t\t\tStorename");
+		list2=impl2.getStore("use shopping select * from Store");
+		
+		@SuppressWarnings("unused")
+    	ArrayList<BS> list1=new ArrayList<BS>();
+		@SuppressWarnings("unused")
+    	ArrayList<Brand> list3=new ArrayList<Brand>();
+		int a=2;
+		do
+		{
+			System.out.println("请输入你中意的店铺：");
+			String str1=in.next();
+			
+			System.out.println(str1+"店中有以下品牌：");
+			System.out.println("Storeid\t\t\tBrandid");
+			list1=impl1.getBS("use shopping select * from BS where Storeid='"+str1+"'");
+			
+			System.out.println("请输入你想查询的品牌id");
+			String str2=in.next();
+			list3=impl3.getBrand("use shopping select * from Brand where Brandid='"+str2+"'");
+			
+			System.out.println("你是否还要再次查询：是输1，否输2");
+			a=in.nextInt();
+		}while(a==1);
+		in.close();
+		System.out.println("欢迎再次光临");
+	}
+
+}
