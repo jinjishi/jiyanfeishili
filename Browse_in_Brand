@@ -1,0 +1,56 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Browse_in_Brand {
+	public static void main(String[] args) throws Exception {
+		Scanner in=new Scanner(System.in);
+		System.out.println("欢迎来到京东购物");
+		ProductDaoImpl impl2=new ProductDaoImpl();
+		BrandDaoImpl impl4=new BrandDaoImpl();//
+		BSDaoImpl impl5=new BSDaoImpl();
+		BelongDaoImpl impl6=new BelongDaoImpl();
+		
+		System.out.println("我们有如下店铺：");
+		@SuppressWarnings("unused")
+    	ArrayList<Belong> list2=new ArrayList<Belong>();
+		@SuppressWarnings("unused")
+    	ArrayList<Product> list3=new ArrayList<Product>();
+		@SuppressWarnings("unused")
+    	ArrayList<Brand> list4=new ArrayList<Brand>();
+		System.out.println("Brandid\t\t\tBrandname");
+		list4=impl4.getBrand("use shopping select * from Brand");
+		@SuppressWarnings("unused")
+    	ArrayList<BS> list5=new ArrayList<BS>();
+		int a=2;
+		do
+		{
+			System.out.println("请输入你中意的品牌：");
+			String str=in.next();
+			System.out.println(str+"品牌有以下店铺：");
+			System.out.println("Storeid\t\t\tBrandid");
+			list5=impl5.getBS("use shopping select * from BS where Brandid='"+str+"'");
+			
+			System.out.println("请输入你中意的店铺：");
+			String str1=in.next();
+			System.out.println(str1+"店中有以下商品：");
+			System.out.println("Storeid\t\t\tProductid\t\tColor\tSize");
+			list2=impl6.getBelong("use shopping select * from Belong where Storeid='"+str1+"'");
+			System.out.println("请输入你中意商品的ID，Color和Size");
+			System.out.println("Productid:");
+			String str2=in.next();
+			System.out.println("Color:");
+			String str3=in.next();
+			System.out.println("Size:");
+			String str4=in.next();
+			System.out.println("详细信息如下：");
+			System.out.println("Productid\t\tColor\tSize\tProductname\tPostage\tWeight\tPrice\tIventory\tComment\tSale_volume\tTagname");
+			list3=impl2.getProduct("use shopping select * from Product where Productid='"+str2+"'and Color='"+str3+"'and Size='"+str4+"'");
+			System.out.println("你是否还要再次查询：是输1，否输2");
+			a=in.nextInt();
+		}while(a==1);
+		in.close();
+		System.out.println("欢迎再次光临");
+	}
+
+}
